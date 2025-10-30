@@ -7,7 +7,9 @@ import nltk
 # --- PANGGIL INISIALISASI SEKALI SAAT SERVER MULAI ---
 mesin_pencari.initialize_mesin() 
 
-app = Flask(__name__)
+app = Flask(__name__,
+            template_folder='Templates',
+            static_folder='Static')
 
 # --- ENDPOINT HALAMAN UTAMA ---
 @app.route('/', methods=['GET'])
