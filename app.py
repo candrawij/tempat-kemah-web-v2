@@ -2,6 +2,7 @@
 
 from flask import Flask, request, jsonify, render_template
 import mesin_pencari # Import modul mesin pencari Anda
+import nltk
 
 # --- PANGGIL INISIALISASI SEKALI SAAT SERVER MULAI ---
 mesin_pencari.initialize_mesin() 

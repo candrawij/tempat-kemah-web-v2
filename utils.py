@@ -48,7 +48,7 @@ def load_map_from_csv(filename):
     
 def load_assets():
     """Memuat aset VSM dari folder assets/ menggunakan path absolut."""
-    assets_dir = os.path.join(BASE_DIR, 'assets')
+    assets_dir = os.path.join(BASE_DIR, 'Assets')
     
     try:
         # Memuat tiga aset utama
