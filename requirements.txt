@@ -1,17 +1,6 @@
-%pip install Sastrawi
-
-import pandas as pd
-import re
-import nltk
-import math
-import sys
-import time
-import csv
-import os
-import joblib
-import flask
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
-from IPython.display import clear_output
-from datetime import datetime
+Sastrawi
+pandas
+nltk
+joblib
+flask
+gunicorn

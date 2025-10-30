@@ -45,4 +45,4 @@ def handle_search():
 if __name__ == '__main__':
     # 'debug=True' akan otomatis me-restart server jika Anda mengubah kode.
     # Jangan gunakan 'debug=True' saat deployment production.
-    app.run(debug=True, port=5000) # Server akan berjalan di http://127.0.0.1:5000/
+    #app.run(debug=True, port=5000) # Server akan berjalan di http://127.0.0.1:5000/
