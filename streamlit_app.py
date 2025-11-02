@@ -266,8 +266,8 @@ if st.session_state.modal_data:
     item = st.session_state.modal_data # Ambil data yang disimpan
     
     # Buat modal
-    dialog = st.experimental_dialog(f"Detail untuk {item['name']}")
-    with dialog: # Ganti 'with modal' menjadi 'with dialog' 
+    modal = st.modal(f"Detail untuk {item['name']}")
+    with modal:
 
         photo_url = item['photo_url']
         if not isinstance(photo_url, str) or pd.isna(photo_url):
