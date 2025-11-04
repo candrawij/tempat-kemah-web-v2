@@ -43,8 +43,6 @@ html, body, [class*="st-"], [class*="css-"] {
 
 /* 6. Styling Search Bar (Sudah Benar) */
 [data-testid="stTextInput"] > div > div {
-    border: 1px solid var(--streamlit-theme-border-color, #AAA); 
-    border-radius: 50px; 
     background-color: var(--streamlit-theme-secondary-background-color); 
     padding-right: 20px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16' fill-opacity='0.5'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
@@ -56,10 +54,6 @@ html, body, [class*="st-"], [class*="css-"] {
     padding-right: 15px;
     font-weight: 400;
     background: transparent;
-}
-[data-testid="stTextInput"] > div > div:has(input:focus) {
-    border-color: #4285F4; 
-    box-shadow: 0 0 5px rgba(66, 133, 244, 0.5);
 }
 
 /* ======================================================= */
