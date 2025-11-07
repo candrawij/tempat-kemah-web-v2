@@ -24,11 +24,10 @@ Sistem ini dirancang dengan logika inti yang terpisah di dalam folder `src/`, ya
 ## 2. Struktur File
 
 Struktur repositori ini dirancang untuk memisahkan data, aset, logika inti, dan skrip yang dapat dieksekusi.
+
 CampGround Search/
 ├── Assets/                 # Output indeks .pkl (Hasil build_index.py)
-
 │   ├── boolean_index.pkl
-
 │   ├── df_metadata.pkl
 │   ├── idf_scores.pkl
 │   └── vsm_index_tf.pkl
