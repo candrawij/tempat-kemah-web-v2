@@ -1,0 +1,35 @@
+# 1. Virtual Environments (WAJIB)
+# Mengabaikan folder virtual environment Anda
+.venv/
+venv/
+env/
+
+# 2. Python Cache & Artifacts (WAJIB)
+# Mengabaikan file bytecode dan cache yang dibuat Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 3. Aset Buatan Proyek (SANGAT DIREKOMENDASIKAN)
+# Mengabaikan semua file .pkl di dalam folder Assets.
+# Dosen/pengguna lain harus menjalankan 'build_index.py' untuk membuatnya.
+Assets/*.pkl
+
+# 4. Log Proyek (SANGAT DIREKOMENDASIKAN)
+# Mengabaikan folder log riwayat pencarian
+Riwayat/
+
+# 5. Streamlit Secrets (WAJIB JIKA ADA)
+# Mengabaikan file rahasia Streamlit yang mungkin berisi API key
+.streamlit/secrets.toml
+
+# 6. File Spesifik OS
+# Mengabaikan file "sampah" dari Windows, macOS, dan Linux
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 7. File Spesifik IDE
+# Mengabaikan folder konfigurasi dari IDE populer
+.vscode/
+.idea/

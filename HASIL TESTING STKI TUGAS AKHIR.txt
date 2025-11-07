@@ -38,14 +38,14 @@ HASIL TESTING STKI TUGAS AKHIR
 2.0
 - pemindahan kode dari ipynb ke py
 - pembuatan website
-- deploy Git
+- deploy Git (railway)
 - pembuatan Front-End sederhana dan Interaktivitas
 - pembuatan Back-End (API)
 
 # pemindahan kode dari ipynb ke py lumayan susah
-# file pickle haru yang sesuai dengan kode yang baru
+# hasil file pickle sesuai dengan kode yang baru
 # Front-End masih terlalu simple
-# kode sudah menggunakan Flask, jadi pakai git saja
+# kode menggunakan Flask, jadi pakai git saja
 
 2.0.1
 - peralihan deploy railway ke streamlit
@@ -61,17 +61,18 @@ HASIL TESTING STKI TUGAS AKHIR
 - pembuatan popup pada menu lihat detail & harga
 - scaling foto yang konsisten, sehingga card terlihat rapi
 
-# foto sudah benar ukurannya dan card rapi, tapi foto terpotong dan tampilannya kurang terlihat, dolusi antara muat foto ke lokal atau cari foto yg sesuai
+# foto sudah benar ukurannya dan card rapi, tapi foto terpotong dan tampilannya kurang terlihat, solusi antara muat foto ke lokal atau cari foto yg sesuai
 # info detail tidak memakai expand karena info yang diberikan terlalu kecil dan sedikit, tidak memakai modul karena error pada kode tampilnya
 
 2.1.2
 - penambahan korpus
-- build_index untuk membaca fasilitas di info_tempat lebih fleksibel, bisa membaca koma ataupun pipa
+- build_index untuk membaca fasilitas di info_tempat lebih fleksibel, bisa membaca koma "," ataupun pipa "|"
+- beralih ke expand dengan penyesuaian
 
 # perhitungan harga masih jelek, belum bisa memisah hari libur dan hari biasa
-# history masih belum ditambahkan
+# history pencarian masih belum ditambahkan
 # beberapa query menghilangkan fitur harga dan fasilitas
-# waebsite masih terlalu putih, tidak ada fariasi warna
+# website masih terlalu putih, tidak ada fariasi warna
 # foto dari google tidak bisa dibaca, harus ganti foto
 
 2.2
@@ -82,11 +83,11 @@ HASIL TESTING STKI TUGAS AKHIR
 
 RENCANA
 - perangkingan harga dan menampilkan harga
-- tanggal terakhir review
-- frekuensi dari baik, cukup, buruk
+- tanggal terakhir review, tanggal terakhir update korpus
+- query frekuensi dari baik, cukup, buruk
 - penggunaan atau, dan (multiple choice)
 - pencarian terbalik, jika cari tempat kemah, maka muncul query atau index apa saja di tempat itu
-- tampilandiperbaiki untuk mobile
+- tampilan diperbaiki untuk mobile
 - smart, bisa mengenali topik dari review, contoh tahu harga tiket, dll
 - informasi jam kerja (pengalaman di sermo, belum masuk jam kerja suruh nunggu dlu)
 
