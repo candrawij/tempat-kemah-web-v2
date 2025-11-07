@@ -21,70 +21,9 @@ Sistem ini dirancang dengan logika inti yang terpisah di dalam folder `src/`, ya
 * **`search.py` (CLI UTS):** *Orchestrator* CLI (Soal 05) yang mengimpor `src/` untuk menjalankan pencarian VSM atau Boolean.
 * **`streamlit_app.py` (Web App):** Aplikasi web RAG yang mengimpor `src/mesin_pencari.py` untuk mengambil konteks (dokumen) sebelum diserahkan ke LLM.
 
-## 2. Struktur File
+## 2. Metode & Implementasi
 
-Struktur repositori ini dirancang untuk memisahkan data, aset, logika inti, dan skrip yang dapat dieksekusi.
-
-CampGround Search/
-
-├── Assets/                 # Output indeks .pkl (Hasil build_index.py)
-
-│   ├── boolean_index.pkl
-
-│   ├── df_metadata.pkl
-
-│   ├── idf_scores.pkl
-
-│   └── vsm_index_tf.pkl
-
-├── Documents/              # Data mentah (korpus)
-
-│   ├── corpus_master.csv
-
-│   └── info_tempat.csv
-
-├── Kamus/                  # Kamus untuk preprocessing
-
-│   └── ...
-
-├── src/                    # Modul Logika Inti
-
-│   ├── __init__.py         # (Penting agar 'src' dikenali sebagai paket)
-
-│   ├── boolean_ir.py       # (Logika Model Boolean)
-
-│   ├── mesin_pencari.py    # (Logika Model VSM & Augmentasi RAG
-
-│   ├── preprocessing.py    # (Logika preprocessing teks)
-
-│   ├── utils.py            # (Fungsi helper, pemuat aset)
-
-│   └── vsm_structures.py   # (Class Node & SlinkedList)
-
-│
-
-├── .gitignore              # (Mengabaikan .venv, pycache, dll.)
-
-├── build_index.py          # [BISA DIJALANKAN] Skrip untuk build indeks
-
-├── eval.py                 # [BISA DIJALANKAN] Skrip evaluasi
-
-├── gold_set.json           # (Kunci jawaban manual untuk eval.py)
-
-├── README.md               
-
-├── requirements.txt        # (Dependensi Python)
-
-├── search.py               # [BISA DIJALANKAN] CLI Orchestrator
-
-├── streamlit_app.py        # [BISA DIJALANKAN] Aplikasi Web (Portofolio)
-
-└── style.css               # (CSS untuk Streamlit)
-
-
-## 3. Metode & Implementasi
-
-### 3.1. Document Preprocessing (Soal 02)
+### 2.1. Document Preprocessing (Soal 02)
 Semua dokumen dan kueri melewati pipeline preprocessing yang ada di `src/preprocessing.py`. Tahapannya meliputi:
 1.  **Case Folding:** Mengubah semua teks menjadi huruf kecil.
 2.  **Normalization:** Menggunakan kamus dari `Kamus/` untuk mengganti slang, frasa, dan typo (misal: "kmr mandi" -> "kamarmandi").
@@ -92,12 +31,12 @@ Semua dokumen dan kueri melewati pipeline preprocessing yang ada di `src/preproc
 4.  **Stopword Removal:** Menghapus *stopwords* bahasa Indonesia menggunakan `nltk`, dengan modifikasi untuk **mempertahankan kata negasi** (seperti 'tidak', 'kurang', 'jangan') agar makna tetap terjaga.
 5.  **Stemming:** Mengubah kata ke bentuk dasarnya menggunakan `Sastrawi`.
 
-### 3.2. Boolean Retrieval Model (Soal 03)
+### 2.2. Boolean Retrieval Model (Soal 03)
 * **Implementasi:** `src/boolean_ir.py`
 * **Indeks:** Selama indexing, `boolean_index.pkl` dibuat sebagai *dictionary* Python, memetakan `term` ke `set()` dari `Doc_ID` yang mengandung *term* tersebut.
 * **Logika:** Pencarian dilakukan dengan *parser* sederhana yang menerapkan operasi `set` Python: `intersection` (AND), `union` (OR), dan `difference` (NOT).
 
-### 3.3. Vector Space Model (Soal 04 & 05)
+### 2.3. Vector Space Model (Soal 04 & 05)
 * **Implementasi:** `src/mesin_pencari.py`
 * **Indeks:** VSM menggunakan dua file aset:
     1.  `idf_scores.pkl`: Menyimpan skor IDF ( $idf_t$ ) untuk setiap *term*.
@@ -116,14 +55,14 @@ Semua dokumen dan kueri melewati pipeline preprocessing yang ada di `src/preproc
 
 ---
 
-## 4. Eksperimen & Evaluasi (Hasil UTS)
+## 3. Eksperimen & Evaluasi (Hasil UTS)
 
 Untuk memenuhi Soal 03, 04, dan 05, evaluasi formal dilakukan menggunakan skrip `eval.py` dan `gold_set.json` (kunci jawaban manual).
 
 * **Model Boolean** dievaluasi menggunakan Precision, Recall, dan F1-Score.
 * **Model VSM** dievaluasi menggunakan **Mean Average Precision (MAP@10)** untuk mengukur kualitas ranking.
 
-### 4.1. Hasil Evaluasi Keseluruhan
+### 3.1. Hasil Evaluasi Keseluruhan
 
 Tabel berikut menunjukkan hasil eksekusi `eval.py` terhadap 3 kueri *gold set*:
 
@@ -139,7 +78,7 @@ Tabel berikut menunjukkan hasil eksekusi `eval.py` terhadap 3 kueri *gold set*:
 | q3 | VSM (TF-IDF) | AP@10: 0.736 | (Top 3: [343, 330, 344]) |
 | q3 | VSM (Sublinear)| AP@10: 0.736 | (Top 3: [343, 330, 344]) |
 
-### 4.2. Perbandingan Skema Bobot VSM (Soal 05)
+### 3.2. Perbandingan Skema Bobot VSM (Soal 05)
 
 Perbandingan performa *ranking* antara dua skema pembobotan VSM:
 
@@ -148,13 +87,13 @@ Perbandingan performa *ranking* antara dua skema pembobotan VSM:
 | **VSM (TF-IDF Standar)** | **0.8189** |
 | VSM (Sublinear TF-IDF) | 0.6985 |
 
-### 4.3. Analisis Hasil
+### 3.3. Analisis Hasil
 1.  **Model Boolean:** Sesuai dengan hasil evaluasi, Model Boolean menunjukkan **Recall yang sangat tinggi** (rata-rata >0.9), yang berarti ia berhasil menemukan hampir semua dokumen relevan. Namun, **Precision-nya sangat rendah** (rata-rata <0.15), karena ia juga mengembalikan sejumlah besar dokumen tidak relevan (*noise*) dan tidak memiliki kemampuan *ranking*.
 2.  **Model VSM:** Model VSM secara signifikan lebih unggul. Berdasarkan perbandingan skema bobot, **skema TF-IDF standar (MAP = 0.8189)** terbukti memberikan performa *ranking* yang lebih baik dan lebih akurat dalam menempatkan dokumen relevan di peringkat teratas dibandingkan dengan skema Sublinear TF-IDF (MAP = 0.6985) pada korpus data ini.
 
 ---
 
-## 5. Cara Penggunaan & Replikasi
+## 4. Cara Penggunaan & Replikasi
 
 ### Langkah 1: Setup Lingkungan
 ```bash
