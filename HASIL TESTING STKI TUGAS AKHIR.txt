@@ -89,6 +89,7 @@ HASIL TESTING STKI TUGAS AKHIR
 - penambahan kategori pada harga di info tempat
 - penambahan kolom waktu buka di info tempat
 - perbaikan css
+- penambahan sidebar untuk riwayat history
 
 
 RENCANA

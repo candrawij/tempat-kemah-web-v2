@@ -8,7 +8,7 @@ html, body, [class*="st-"], [class*="css-"] {
 }
 
 /* Menggunakan URL gambar Anda */
-.main {
+[data-testid="stAppViewContainer"] > .main {
     background-image: linear-gradient(rgba(10, 10, 25, 0.6), rgba(10, 10, 25, 0.8)), url("https://www.outdoorjapan.com/wp-content/uploads/2020/07/tent-night-wide.jpg");
     background-size: cover;
     background-position: center;
@@ -175,4 +175,136 @@ div[data-testid="stDialog"] strong {
 }
 [data-testid="stDialog"] [data-testid="stButton"] > button[key="dialog_close"]:hover {
     background-color: #666677;
+}
+
+/* === 8. STYLING SIDEBAR (PANEL ADMIN) === */
+/* Mengatur background sidebar agar SAMA dengan .main */
+[data-testid="stSidebar"] {
+    background-image: linear-gradient(rgba(10, 10, 25, 0.6), rgba(10, 10, 25, 0.8)), url("https://www.outdoorjapan.com/wp-content/uploads/2020/07/tent-night-wide.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-color: #1a1a2e;
+}
+
+/* Terapkan "Frosted Glass" ke kontainer konten sidebar */
+[data-testid="stSidebar"] > div:first-child {
+    background: rgba(26, 26, 46, 0.75); /* Sama seperti .main .block-container */
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    
+    /* Garis pemisah tipis dengan konten utama */
+    border-right: 1px solid rgba(255, 255, 255, 0.1); 
+    padding: 1.5rem; /* Beri padding yang bagus */
+}
+
+/* === Teks di dalam Sidebar === */
+[data-testid="stSidebar"] * {
+    color: #E0E0E0; /* Teks default putih pudar */
+}
+/* Judul dan subjudul dibuat lebih cerah */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] strong {
+    color: #FFFFFF;
+}
+
+/* === Input Password Admin === */
+[data-testid="stSidebar"] [data-testid="stTextInput"] > div > div {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+[data-testid="stSidebar"] [data-testid="stTextInput"] input {
+    color: #FFFFFF;
+    background: transparent;
+}
+
+/* === Alert (Success & Error) === */
+[data-testid="stSidebar"] [data-testid="stSuccess"] {
+    background-color: rgba(16, 185, 129, 0.2); /* Hijau transparan */
+    border: 1px solid #10B981;
+    color: #10B981; /* Teks hijau cerah */
+    border-radius: 8px;
+}
+[data-testid="stSidebar"] [data-testid="stError"] {
+    background-color: rgba(239, 68, 68, 0.2); /* Merah transparan */
+    border: 1px solid #EF4444;
+    color: #EF4444; /* Teks merah cerah */
+    border-radius: 8px;
+}
+
+/* === st.metric (Statistik Kueri) === */
+[data-testid="stSidebar"] [data-testid="stMetric"] {
+    background: rgba(255, 255, 255, 0.05); /* Latar sangat tipis */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+/* Label metric (cth: "'kamar mandi bersih'") */
+[data-testid="stSidebar"] [data-testid="stMetricLabel"] {
+    color: #AAAAAA; /* Abu-abu */
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+/* Value metric (cth: "15 kali") */
+[data-testid="stSidebar"] [data-testid="stMetricValue"] {
+    color: #FFFFFF;
+    font-size: 1.25rem;
+}
+
+/* === st.expander (Data Mentah) === */
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary {
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+/* === 9. PERBAIKAN IKON EXPANDER SIDEBAR === */
+/* 1. Sembunyikan panah '>' bawaan */
+[data-testid="stSidebar"] [data-testid="stExpander"] summary::marker,
+[data-testid="stSidebar"] [data-testid="stExpander"] summary::-webkit-details-marker {
+    display: none;
+    font-size: 0;
+    content: '';
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary {
+    list-style: none; /* Fallback */
+    display: flex; /* Aktifkan flexbox */
+    align-items: center; /* Sejajarkan ikon dan teks */
+}
+
+/* 2. Tambahkan ikon '+' kustom kita (sebagai background) */
+[data-testid="stSidebar"] [data-testid="stExpander"] summary::before {
+    /* Hapus 'content' teks */
+    content: ''; 
+    
+    /* Gunakan SVG Data URL untuk ikon PLUS putih */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M8 4v8M4 8h8'/%3E%3C/svg%3E");
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 1em;
+    height: 1em;
+    margin-right: 10px;
+    transition: transform 0.2s ease;
+    display: inline-block;
+    flex-shrink: 0; /* Mencegah ikon menyusut */
+}
+
+/* 3. Ganti '+' menjadi '-' saat expander terbuka */
+[data-testid="stSidebar"] [data-testid="stExpander"][open] summary::before {
+    /* Gunakan SVG Data URL untuk ikon MINUS putih */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 8h8'/%3E%3C/svg%3E");
+    
+    /* Opsi: efek putar (jika Anda lebih suka) */
+    /* transform: rotate(90deg); */
 }

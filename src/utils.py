@@ -112,9 +112,61 @@ def load_logs_gsheets():
         st.sidebar.error(f"Gagal memuat log GSheets: {e}")
         return pd.DataFrame() # Kembalikan DataFrame kosong
 
+LOG_FILE_PATH = os.path.join(BASE_DIR, 'Riwayat', 'riwayat_pencarian.csv')
+LOG_COLS = ['timestamp', 'query_mentah', 'vsm_tokens', 'intent', 'region']
+
+def log_pencarian_csv(query, tokens, intent, region):
+    """
+    Mencatat kueri pencarian ke file CSV lokal di folder /Riwayat.
+    Dibuat agar anti-gagal (tidak akan meng-crash aplikasi utama).
+    """
+    try:
+        # 1. Pastikan folder 'Riwayat' ada
+        os.makedirs(os.path.dirname(LOG_FILE_PATH), exist_ok=True)
+        
+        # 2. Siapkan data baru
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        tokens_str = ' '.join(tokens)
+        data_baru = pd.DataFrame(
+            [[timestamp, query, tokens_str, str(intent), str(region)]], 
+            columns=LOG_COLS
+        )
+        
+        # 3. Cek apakah file ada (untuk menentukan perlu header atau tidak)
+        file_exists = os.path.exists(LOG_FILE_PATH)
+        
+        # 4. Tulis/Append ke CSV
+        data_baru.to_csv(
+            LOG_FILE_PATH, 
+            mode='a', # 'a' = append (menambahkan)
+            header=not file_exists, # Hanya tulis header jika file baru
+            index=False
+        )
+    except Exception as e:
+        # PENTING: Jangan crash aplikasi utama jika logging gagal
+        print(f"⚠️ GAGAL mencatat riwayat ke CSV: {e}")
+        # Di Streamlit Cloud, ini hanya akan muncul di log, tidak di UI
+        st.toast(f"Gagal mencatat riwayat: {e}", icon="⚠️")
+
+def baca_riwayat_csv(limit=50):
+    """
+    Membaca file log CSV untuk ditampilkan di dashboard admin.
+    """
+    try:
+        df = pd.read_csv(LOG_FILE_PATH)
+        # Urutkan dari terbaru ke terlama dan ambil limit
+        return df.iloc[::-1].head(limit)
+    except FileNotFoundError:
+        # Jika file belum ada, kembalikan DataFrame kosong
+        return pd.DataFrame(columns=LOG_COLS)
+    except Exception as e:
+        print(f"⚠️ GAGAL membaca riwayat CSV: {e}")
+        return pd.DataFrame(columns=LOG_COLS)
+
 #def log_pencarian_sql(query, tokens, intent, region):
     """
     Mencatat detail pencarian ke database SQL (Supabase).
+    ... (fungsi ini tidak berubah) ...
     """
     try:
         # 1. Ubah list token menjadi satu string agar bisa disimpan

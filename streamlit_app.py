@@ -4,6 +4,7 @@ import urllib.parse
 import json
 import os
 import re
+from src import utils
 from src import mesin_pencari
 
 # --- FUNGSI LOGGING (NONAKTIF SEMENTARA) ---
@@ -47,22 +48,48 @@ muat_mesin_vsm()
 # 3. PANEL ADMIN (SUDAH DIPERBARUI UNTUK G-SHEETS)
 # ======================================================================
 
-#st.sidebar.title("Panel Admin")
-#admin_password = st.sidebar.text_input("Masukkan Password Admin", type="password")
+st.sidebar.title("Panel Admin")
+admin_password = st.sidebar.text_input("Masukkan Password Admin", type="password")
 
-#if admin_password == st.secrets.get("ADMIN_PASSWORD", ""):
-#    st.sidebar.success("Mode Admin Aktif  unlocked")
-#    st.sidebar.subheader("📊 Riwayat Pencarian (50 Terbaru)")
-#    
-#    try:
-#        # Panggil fungsi GSheets untuk MEMBACA (load)
-#        df_log = load_logs_gsheets()
-#        st.sidebar.dataframe(df_log)
-#        
-#    except Exception as e:
-#        st.sidebar.error(f"Gagal mengambil data log: {e}")
-#elif admin_password:
-#    st.sidebar.error("Password admin salah.")
+admin_pass_rahasia = st.secrets.get("ADMIN_PASSWORD", "1234")
+
+if admin_password == admin_pass_rahasia:
+    st.sidebar.success("Mode Admin Aktif")
+    st.sidebar.subheader("📊 Wawasan Pencarian")
+    
+    try:
+        # 1. Panggil fungsi CSV
+        # Baca 500 log terakhir untuk statistik yang baik
+        df_log = utils.baca_riwayat_csv(limit=500) 
+        
+        if df_log.empty:
+            st.sidebar.info("Belum ada riwayat pencarian.")
+        else:
+            st.sidebar.markdown("**Kueri Paling Populer:**")
+            
+            # 2. Hitung 5 kueri teratas
+            top_queries = df_log['query_mentah'].value_counts().head(5)
+            
+            # 3. Tampilkan sebagai st.metric yang bersih
+            for query, count in top_queries.items():
+                st.sidebar.metric(label=f"'{query}'", value=f"{count} kali")
+            
+            # Tampilkan wawasan lain jika kolomnya ada
+            if 'region' in df_log.columns:
+                st.sidebar.markdown("**Region Paling Populer:**")
+                # Filter 'None' atau string kosong
+                top_regions = df_log[df_log['region'].notna() & (df_log['region'] != 'None')]['region'].value_counts().head(3)
+                for region, count in top_regions.items():
+                    st.sidebar.metric(label=f"'{region}'", value=f"{count} kali")
+
+            with st.sidebar.expander("Tampilkan 50 Log Terakhir (Data Mentah)"):
+                st.dataframe(df_log.head(50)) # Tampilkan 50 teratas di sini
+            
+    except Exception as e:
+        st.sidebar.error(f"Gagal mengambil data log: {e}")
+
+elif admin_password: # Jika password diisi tapi salah
+    st.sidebar.error("Password admin salah.")
 
 # ======================================================================
 # TAMPILAN UTAMA
@@ -109,6 +136,8 @@ if tombol_cari and query_input:
     with st.spinner("⏳ Menganalisis ulasan dan mencari rekomendasi..."):
         vsm_tokens, intent, region = mesin_pencari.analyze_full_query(query_input)
         results = mesin_pencari.search_by_keyword(vsm_tokens, intent, region)
+
+        utils.log_pencarian_csv(query_input, vsm_tokens, intent, region)
         
         # Simpan hasil ke session state agar tidak hilang saat rerun
         st.session_state.results_df = pd.DataFrame(results)
