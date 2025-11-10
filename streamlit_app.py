@@ -23,7 +23,7 @@ def load_css(file_name):
     """Memuat file CSS eksternal."""
     file_path = os.path.join(os.path.dirname(__file__), file_name)
     try:
-        with open(file_path, "r") as f:
+        with open(file_name, "r", encoding="utf-8") as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     except FileNotFoundError:
         st.error(f"File CSS '{file_name}' tidak ditemukan. Pastikan file ada di folder yang sama.")
@@ -82,7 +82,7 @@ if admin_password == admin_pass_rahasia:
                 for region, count in top_regions.items():
                     st.sidebar.metric(label=f"'{region}'", value=f"{count} kali")
 
-            with st.sidebar.expander("Tampilkan 50 Log Terakhir (Data Mentah)"):
+            with st.sidebar.expander("Riwayat Pencarian Lengkap"):
                 st.dataframe(df_log.head(50)) # Tampilkan 50 teratas di sini
             
     except Exception as e:

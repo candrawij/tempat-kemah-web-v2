@@ -8,12 +8,15 @@ html, body, [class*="st-"], [class*="css-"] {
 }
 
 /* Menggunakan URL gambar Anda */
-[data-testid="stAppViewContainer"] > .main {
-    background-image: linear-gradient(rgba(10, 10, 25, 0.6), rgba(10, 10, 25, 0.8)), url("https://www.outdoorjapan.com/wp-content/uploads/2020/07/tent-night-wide.jpg");
+[data-testid="stAppViewContainer"] {
+    background-image: linear-gradient(rgba(10, 10, 25, 0.8), rgba(10, 10, 25, 0.8)), url("https://github.com/candrawij/tempat-kemah-web-v2/blob/main/tent-night-wide.jpg?raw=true");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-color: #1a1a2e; /* Warna fallback */
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    background-color: transparent !important; /* Paksa transparan */
     color: #FFFFFF;
 }
 
@@ -37,21 +40,32 @@ html, body, [class*="st-"], [class*="css-"] {
 }
 
 /* === 3. TIPOGRAFI & JUDUL === */
-[data-testid="stHeading"] { text-align: center; }
-[data-testid="stHeading"] > h1 {
+/* 1. Aturan ini HANYA menengahkan H1 (st.title) */
+#cari-kemah {
     font-size: 3.5rem;
     font-weight: 700;
-    text-align: center;
-    color: #FFFFFF; /* Paksa Putih */
+    text-align: center; /* Judul Anda akan ke tengah */
+    color: #FFFFFF;
     padding-bottom: 1rem;
 }
-.sub-judul, .search-guide {
+
+.sub-judul {
     text-align: center;
-    color: #E0E0E0; /* Putih pudar */
+    color: #E0E0E0;
+    font-weight: 600;
+    font-size: 2.4rem;
+    margin-top: -5px;
+    letter-spacing: 0.4px;
+}
+
+.search-guide {
+    text-align: center;
+    color: #E0E0E0;
     font-weight: 300;
-    font-size: 1.2rem;
-    margin-top: -15px;
-    padding-bottom: 2rem;
+    font-size: 1.1rem;
+    margin-top: -5px;
+    letter-spacing: 0.4px;
+    padding-bottom: 1rem;
 }
 
 /* === 4. SEARCH BAR === */
@@ -62,12 +76,19 @@ html, body, [class*="st-"], [class*="css-"] {
     background: rgba(255, 255, 255, 0.1); 
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    background-image: none; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ffffff' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");    background-repeat: no-repeat;
+    background-position: right 15px center;
 }
 [data-testid="stTextInput"] input {
     color: #FFFFFF;
     background: transparent;
     padding-left: 1rem;
+}
+[data-testid="stTextInput"] [data-testid="stTextInputRootElement"] {
+    background: #28283C !important;
+    border: none !important;
+    padding: 0 !important; /* Hapus padding default */
+    margin-bottom: 8px !important; /* Beri sedikit jarak bawah */
 }
 
 /* === 5. KARTU HASIL (MEMPERBAIKI TOMBOL) === */
@@ -83,7 +104,7 @@ html, body, [class*="st-"], [class*="css-"] {
    Ini hanya akan berfungsi jika Anda menggunakan st.container(border=True) 
 */
 [data-testid="stVerticalBlock"] > [data-testid="stContainer"] {
-    background: rgba(40, 40, 60, 0.85);
+    background: rgb(255, 255, 255);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(5px);
@@ -121,27 +142,37 @@ div[data-testid="stImage"] > img {
     justify-content: space-between;
 }
 
-/* === 6. TOMBOL (MEMPERBAIKI WARNA) === */
-/* INI SELEKTOR KUNCI UNTUK TOMBOL.
-   Selektor ini menargetkan tombol di dalam st.container(border=True) 
-*/
-[data-testid="stContainer"] [data-testid="stButton"] > button {
-    background-color: #3B82F6; /* Biru cerah */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-    width: 100%;
+[data-testid="stContainer"] h3,
+[data-testid="stContainer"] p,
+[data-testid="stContainer"] .stCaption,
+[data-testid="stContainer"] [data-testid="stMetric"] {
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.8);
+    color: #FFFFFF;
 }
-[data-testid="stContainer"] [data-testid="stButton"] > button:hover {
-    background-color: #2563EB;
-    color: white;
+
+/* === 6. TOMBOL DI KARTU (Lihat Detail & Harga) === */
+/* Letak tombol ini di dalam st.container(border=True) */
+[data-testid="stVerticalBlock"] [data-testid="stButton"] button,
+[data-testid="stContainer"] [data-testid="stButton"] button {
+    background: linear-gradient(90deg, #2a5292, #315fa8) !important; /* Biru gradasi */
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    width: 100% !important;
+    padding: 0.6rem 1rem !important;
+    transition: all 0.2s ease-in-out !important;
+}
+[data-testid="stVerticalBlock"] [data-testid="stButton"] button:hover,
+[data-testid="stContainer"] [data-testid="stButton"] button:hover {
+    background: linear-gradient(90deg, #092664, #0c2f7c) !important; /* Biru lebih gelap */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 /* === 7. STYLING DIALOG (POP-UP) === */
 div[data-testid="stDialog"] > div {
-    background: #28283C; 
+    background: rgba(40, 40, 60, 0.50); 
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(20px);
@@ -156,35 +187,46 @@ div[data-testid="stDialog"] {
 div[data-testid="stDialog"] strong {
     color: #FFFFFF;
 }
-[data-testid="stDialog"] [data-testid="stLinkButton"] button {
-    background-color: #10B981;
+
+/* 7A. Tombol “Buka di Google Maps” */
+[data-testid="stDialog"] [data-testid="stBaseLinkButton-secondary"] {
+    background-color: #2d7a61 !important; /* Hijau cerah */
     color: white !important;
-    font-weight: 600;
-    border-radius: 8px;
+    border: none !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    padding: 0.6rem 1rem !important;
+    text-decoration: none !important;
+    display: inline-block !important;
     transition: background-color 0.2s ease;
 }
-[data-testid="stDialog"] [data-testid="stLinkButton"] button:hover {
-    background-color: #059669;
+
+[data-testid="stDialog"] [data-testid="stBaseLinkButton-secondary"]:hover {
+    background-color: #045038 !important; /* Hijau lebih gelap */
     color: white !important;
 }
-[data-testid="stDialog"] [data-testid="stButton"] > button[key="dialog_close"] {
-    background-color: #555566;
-    color: white;
-    font-weight: 600;
-    border-radius: 8px;
+
+/* 7B. Tombol “Tutup” */
+[data-testid="stDialog"] [data-testid="stButton"] button {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #E0E0E0 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    transition: all 0.2s ease !important;
 }
-[data-testid="stDialog"] [data-testid="stButton"] > button[key="dialog_close"]:hover {
-    background-color: #666677;
+[data-testid="stDialog"] [data-testid="stButton"] button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
 }
+
 
 /* === 8. STYLING SIDEBAR (PANEL ADMIN) === */
 /* Mengatur background sidebar agar SAMA dengan .main */
 [data-testid="stSidebar"] {
-    background-image: linear-gradient(rgba(10, 10, 25, 0.6), rgba(10, 10, 25, 0.8)), url("https://www.outdoorjapan.com/wp-content/uploads/2020/07/tent-night-wide.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-color: #1a1a2e;
+    background-image: none !important;
 }
 
 /* Terapkan "Frosted Glass" ke kontainer konten sidebar */
@@ -267,44 +309,63 @@ div[data-testid="stDialog"] strong {
     font-weight: 600;
     color: #FFFFFF;
 }
-
-/* === 9. PERBAIKAN IKON EXPANDER SIDEBAR === */
-/* 1. Sembunyikan panah '>' bawaan */
-[data-testid="stSidebar"] [data-testid="stExpander"] summary::marker,
-[data-testid="stSidebar"] [data-testid="stExpander"] summary::-webkit-details-marker {
-    display: none;
-    font-size: 0;
-    content: '';
-}
-[data-testid="stSidebar"] [data-testid="stExpander"] summary {
-    list-style: none; /* Fallback */
-    display: flex; /* Aktifkan flexbox */
-    align-items: center; /* Sejajarkan ikon dan teks */
+/* 1. Target kotak LUAR (stTextInputRootElement) */
+/* Buat transparan total agar tidak terlihat */
+[data-testid="stSidebar"] [data-testid="stTextInputRootElement"] {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important; /* Hapus padding default */
+    margin-bottom: 8px !important; /* Beri sedikit jarak bawah */
 }
 
-/* 2. Tambahkan ikon '+' kustom kita (sebagai background) */
-[data-testid="stSidebar"] [data-testid="stExpander"] summary::before {
-    /* Hapus 'content' teks */
-    content: ''; 
+/* 2. Target kotak DALAM (data-baseweb="base-input") */
+/* Ini adalah kotak "frosted glass" Anda yang sebenarnya */
+[data-testid="stSidebar"] [data-testid="stTextInput"] div[data-baseweb="base-input"] {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+}
+
+/* 3. Target <input> di dalamnya (memaksa transparan) */
+[data-testid="stSidebar"] [data-testid="stTextInput"] input {
+    color: #FFFFFF !important;
+    background: transparent !important;
+}
+
+/* 4. (BARU) Target tombol 'mata' untuk password */
+[data-testid="stSidebar"] [data-testid="stTextInput"] button {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+[data-testid="stSidebar"] [data-testid="stTextInput"] button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* === 9. PERBAIKAN TOMBOL BUKA/TUTUP SIDEBAR === */
+/* (Menyembunyikan teks "keyboard_double_arrow_right") */
+
+/* Tombol Buka Sidebar (di header kiri atas) */
+header [data-testid="stIconMaterial"] {
+    font-size: 0 !important; /* Sembunyikan teks ikon */
     
-    /* Gunakan SVG Data URL untuk ikon PLUS putih */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M8 4v8M4 8h8'/%3E%3C/svg%3E");
-    
+    /* Ganti dengan SVG panah kanan */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3E%3Cpath d='M6 12.8L10.8 8L6 3.2L7.2 2L13.2 8L7.2 14L6 12.8Z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
-    width: 1em;
-    height: 1em;
-    margin-right: 10px;
-    transition: transform 0.2s ease;
+    width: 24px;
+    height: 24px;
     display: inline-block;
-    flex-shrink: 0; /* Mencegah ikon menyusut */
 }
 
-/* 3. Ganti '+' menjadi '-' saat expander terbuka */
-[data-testid="stSidebar"] [data-testid="stExpander"][open] summary::before {
-    /* Gunakan SVG Data URL untuk ikon MINUS putih */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M4 8h8'/%3E%3C/svg%3E");
+/* Tombol Tutup Sidebar (di dalam sidebar) */
+[data-testid="stSidebar"] [data-testid="stIconMaterial"] {
+    font-size: 0 !important; /* Sembunyikan teks ikon */
     
-    /* Opsi: efek putar (jika Anda lebih suka) */
-    /* transform: rotate(90deg); */
+    /* Ganti dengan SVG panah kiri */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3E%3Cpath d='M10 12.8L5.2 8L10 3.2L8.8 2L2.8 8L8.8 14L10 12.8Z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
 }
