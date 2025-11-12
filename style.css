@@ -369,3 +369,123 @@ header [data-testid="stIconMaterial"] {
     height: 24px;
     display: inline-block;
 }
+
+/* ======================================================= */
+/* --- 10. ATURAN RESPONSIVE (MOBILE) --- */
+/* (Berlaku untuk layar di bawah 768px) */
+/* ======================================================= */
+@media (max-width: 768px) {
+
+    /* 1. Perbaikan Background & Kontainer Utama */
+    [data-testid="stAppViewContainer"] > .main {
+        background-attachment: scroll;
+    }
+
+    .main .block-container {
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        border-radius: 12px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* 2. Perkecil Ukuran Font Judul */
+    [data-testid="stHeading"] > h1 {
+        font-size: 2.2rem;
+    }
+    .sub-judul, .search-guide {
+        font-size: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    /* 3. Paksa Kartu Menjadi 1 Kolom dengan Efek Menarik */
+    [data-testid="stHorizontalBlock"] {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.5rem;
+    }
+
+    /* 4. Styling Card yang Lebih Menarik */
+    [data-testid="stVerticalBlock"] > [data-testid="stContainer"] {
+        margin-bottom: 0;
+        width: 100%;
+        max-width: 380px; /* Batasi lebar card */
+        background: rgba(26, 26, 46, 0.9); /* Lebih opaque untuk mobile */
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        transform: scale(1);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    [data-testid="stVerticalBlock"] > [data-testid="stContainer"]:active {
+        transform: scale(0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 5. Image Lebih Proporsional */
+    div[data-testid="stImage"] {
+        aspect-ratio: 4 / 3;
+        border-radius: 12px 12px 0 0;
+    }
+
+    /* 6. Konten Card Lebih Baik */
+    [data-testid="stVerticalBlock"] > [data-testid="stContainer"] [data-testid="stBlock"] {
+        padding: 1.5rem 1rem;
+    }
+
+    [data-testid="stContainer"] h3 {
+        font-size: 1.25rem;
+        text-align: center;
+        margin-bottom: 0.75rem;
+    }
+
+    [data-testid="stContainer"] .stCaption {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #AAAAAA;
+    }
+
+    [data-testid="stContainer"] [data-testid="stMetric"] {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin: 0.75rem 0;
+    }
+
+    /* 7. Tombol Card Lebih Responsif */
+    [data-testid="stVerticalBlock"] [data-testid="stButton"] button,
+    [data-testid="stContainer"] [data-testid="stButton"] button {
+        padding: 0.7rem 1.25rem !important;
+        border-radius: 8px !important;
+        font-size: 0.95rem !important;
+        margin-top: 0.5rem;
+    }
+
+    /* 8. Dialog Lebih Cocok Mobile */
+    div[data-testid="stDialog"] > div {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 12px;
+    }
+
+    div[data-testid="stDialog"] h1 {
+        font-size: 1.5rem;
+    }
+
+    div[data-testid="stDialog"] p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* 9. Sidebar untuk Mobile */
+    [data-testid="stSidebar"] {
+        width: 85vw !important;
+    }
+
+    [data-testid="stSidebar"] > div:first-child {
+        padding: 1.25rem;
+    }
+}

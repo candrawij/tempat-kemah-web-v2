@@ -91,6 +91,9 @@ HASIL TESTING STKI TUGAS AKHIR
 - perbaikan css
 - penambahan sidebar untuk riwayat history
 
+2.3.1
+- perbaikan tampilan mobile
+
 
 RENCANA
 - perangkingan harga, pencarian berdasarkan harga mahal dan murah
