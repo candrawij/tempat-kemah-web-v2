@@ -99,7 +99,7 @@ Perbandingan performa *ranking* antara dua skema pembobotan VSM:
 ```bash
 # 1. Clone repositori
 git clone https://github.com/candrawij/tempat-kemah-web-v2.git
-cd tempat-kemah-web-v2
+cd stki-uts-A11.2023.15419-Candra-Wijayanto
 
 # 2. Buat virtual environment (disarankan)
 python -m venv .venv
